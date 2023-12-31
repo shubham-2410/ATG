@@ -76,6 +76,7 @@ const login = async (req , res)=>{
     try {
         const {userName , password} = req.body;
 
+        console.log(userName , password)
          // Ensuring that all feilds are present
         if(!userName || !password){
             return res.status(400).json({

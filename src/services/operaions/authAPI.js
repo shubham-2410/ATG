@@ -50,6 +50,7 @@ export function login(userName , password , navigate) {
 				throw new Error(response.data.message);
 			}
 
+			console.log('i am here')
 			dispatch(setToken(response.data.token));
 			dispatch(setUser({ ...response.data.user }));
 
