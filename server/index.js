@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express(); //creating instance
 
-const bodyParser = require('body-parser'); 
+const bodyParser = require('body-parser');
 const { connectDB } = require('./config/database');
 const cors = require('cors');
 const cookieParser = require("cookie-parser");
@@ -14,20 +14,31 @@ require('dotenv').config();
 app.use(bodyParser.json());
 
 // frontend
-app.use(
-    cors({
-        origin: "https://atg-indol.vercel.app/",
-        credentials: true,
-        methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-        allowedHeaders: "Content-Type,Authorization",
-    })
-);
+// app.use(
+//     cors({
+//         origin: "https://atg-indol.vercel.app",
+//         credentials: true,
+//         methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+//         allowedHeaders: "Content-Type,Authorization",
+//     })
+// );
+
+
+const corsOptions = {
+    origin: ['https://atg-indol.vercel.app', 'http://localhost:3000'], // Add all allowed origins
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+    optionsSuccessStatus: 204,
+};
+
+// Enable CORS with options
+app.use(cors(corsOptions));
 
 // to parse cookie
 app.use(cookieParser());
 
 app.use('/api/v1/auth', authRoute);
-app.use('/api/v1/password' , resetRoute);
+app.use('/api/v1/password', resetRoute);
 
 app.get('/', async (req, res) => {
     return res.status(200).json({
