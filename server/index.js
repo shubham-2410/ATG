@@ -14,9 +14,14 @@ require('dotenv').config();
 app.use(bodyParser.json());
 
 // frontend
-app.use(cors({
-    origin:"http://localhost:3000"
-}));
+app.use(
+    cors({
+        origin: "http://localhost:3000",
+        credentials: true,
+        methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+        allowedHeaders: "Content-Type,Authorization",
+    })
+);
 
 // to parse cookie
 app.use(cookieParser());

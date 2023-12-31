@@ -1,23 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
-import toast from "react-hot-toast";
+const userString = localStorage.getItem("user");
+const tokenString = localStorage.getItem("token");
 
 const initialState = {
-    user : localStorage.getItem("user")!==("undefined"||null) ? JSON.parse(localStorage.getItem("user")) :null,
-    token : localStorage.getItem("token") ? JSON.parse(localStorage.getItem("token")) :null
+    user: userString && userString !== "undefined" && userString !== null ? JSON.parse(userString) : null,
+    token: tokenString && tokenString !== "undefined" && tokenString !== null ? JSON.parse(tokenString) : null,
 };
 
-const  authSlice = createSlice({
+const authSlice = createSlice({
     name: "auth",
     initialState,
-    reducers:{
-        setUser:(state , value)=>{
+    reducers: {
+        setUser: (state, value) => {
             state.user = value.payload;
         },
-        setToken(state , action){
+        setToken(state, action) {
             state.token = action.payload;
         },
-    }
+    },
 });
 
-export const {setUser  , setToken} = authSlice.actions;
-export default authSlice.reducer ;
+export const { setUser, setToken } = authSlice.actions;
+export default authSlice.reducer;
